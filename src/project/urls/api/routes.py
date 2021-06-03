@@ -1,11 +1,18 @@
 from rest_framework.routers import SimpleRouter
+from rest_framework_nested import routers
 
-from views.cryptocurrencie.api import CryptocurrencieViewSet
+from views.cryptocurrencie.api import CryptocurrencieViewSet, CryptocurrencieBuySaleViewSet
 from views.user.api import UserViewSet
 
 router = SimpleRouter()
 
-router.register('users', UserViewSet)
-router.register('cryptocurrencies', CryptocurrencieViewSet)
+_users = 'users'
+_cryptocurrencies = 'cryptocurrencies'
 
-router_urls = router.urls
+router.register(_users, UserViewSet)
+router.register(_cryptocurrencies, CryptocurrencieViewSet)
+
+user_router = routers.NestedSimpleRouter(router, _users, lookup='user')
+user_router.register(_cryptocurrencies, CryptocurrencieBuySaleViewSet)
+
+router_urls = router.urls + user_router.urls

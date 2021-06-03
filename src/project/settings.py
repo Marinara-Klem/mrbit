@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     # 'django.contrib.sessions',
     'django.contrib.messages',
     # 'django.contrib.staticfiles',
-    'domain.user.apps.UserConfig'
+    'domain.user.apps.UserConfig',
+    'domain.cryptocurrencie.apps.CryptocurrencieConfig'
 ]
 
 MIDDLEWARE = [

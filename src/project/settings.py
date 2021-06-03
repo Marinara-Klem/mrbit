@@ -15,9 +15,13 @@ from pathlib import Path
 env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+SETTINGS_DIR = Path(__file__).parent
+PROJECT_DIR = SETTINGS_DIR.parent
+BASE_DIR = PROJECT_DIR.parent
+ROOT_DIR = BASE_DIR.parent
 
 ADMIN_ENABLED = False
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -38,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'domain.user.apps.UserConfig',
-    'domain.cryptocurrencie.apps.CryptocurrencieConfig'
+    'domain.cryptocurrencie.apps.CryptocurrencieConfig',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -103,6 +108,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+ROOT_URLCONF = 'project.urls.base'
+
+SWAGGER_SETTINGS = {
+    'DEEP_LINKING': True,
+    'USE_SESSION_AUTH': False
+}
 
 
 # Internationalization

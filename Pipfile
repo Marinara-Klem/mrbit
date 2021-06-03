@@ -10,6 +10,8 @@ django = "*"
 environ = "*"
 django-environ = "*"
 psycopg2 = "*"
+djangorestframework = "*"
+drf-yasg = "*"
 
 [requires]
 python_version = "3.7"

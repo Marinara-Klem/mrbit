@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: mrbit_postgres
+    volumes:
+      - data_postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "mrbit"
+      POSTGRES_PASSWORD: "mrbit"
+    ports:
+      - "5432:5432"
+
+volumes:
+  data_postgres:
+    driver: local

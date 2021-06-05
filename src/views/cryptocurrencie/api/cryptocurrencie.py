@@ -6,7 +6,8 @@ from domain.cryptocurrencie.models import Cryptocurrencie
 from domain.user.models import User
 from services import CryptocurrencyOperationService
 from views.cryptocurrencie.serializer import CryptocurrencieSerializer, CryptocurrencyOperationSerializer
-from views.cryptocurrencie.serializer.cryptocurrencie import CryptocurrencyOperationTypeChoices
+from views.cryptocurrencie.serializer.cryptocurrencie import CryptocurrencyOperationTypeChoices, \
+    UserCryptocurrentiesCreateSerializer
 
 
 class CryptocurrencieViewSet(viewsets.ModelViewSet):
@@ -17,6 +18,29 @@ class CryptocurrencieViewSet(viewsets.ModelViewSet):
 class CryptocurrencyOperationViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = CryptocurrencyOperationSerializer
     queryset = Cryptocurrencie.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return UserCryptocurrentiesCreateSerializer
+        return super().get_serializer_class()
+
+    def create(self, request, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = get_object_or_404(User, pk=kwargs.get('user_pk'))
+        cryptocurrencie = get_object_or_404(Cryptocurrencie, pk=serializer.validated_data.get('cryptocurrency_id'))
+
+        cryptocurrency_user, _ = user.wallet_set.get_or_create(
+            cryptocurrencie=cryptocurrencie
+        )
+
+        amount = serializer.validated_data.get('amount')
+        cryptocurrency_user.credit_cryptocurrencie(amount=amount)
+        cryptocurrency_user.save()
+
+        msg = {f'{cryptocurrencie} incluidos na carteira com sucesso'}
+        return response.Response(msg, status.HTTP_200_OK)
 
     @decorators.action(methods=['post'], detail=True, url_path='operation')
     def operation(self, request, **kwargs):

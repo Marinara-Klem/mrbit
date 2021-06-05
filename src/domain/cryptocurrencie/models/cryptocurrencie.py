@@ -16,4 +16,4 @@ class Cryptocurrencie(models.Model):
             return self.value * amount
 
     def __str__(self):
-        return f'{self.abbreviation} - {self.name}'
+        return f'{self.abbreviation}-{self.name}'

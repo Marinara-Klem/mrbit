@@ -1,2 +1,3 @@
-from .cryptocurrencie import CryptocurrencieSerializer, CryptocurrencyOperationSerializer
+from .cryptocurrencie import CryptocurrencieSerializer, CryptocurrencyOperationSerializer, \
+    UserCryptocurrentiesCreateSerializer
 from .wallet import WalletSerializer

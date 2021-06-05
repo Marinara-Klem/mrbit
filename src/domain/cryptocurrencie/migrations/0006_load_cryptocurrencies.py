@@ -33,6 +33,9 @@ def load_fixture(apps, schema_editor):
 
 
 def reverte(apps, schema_editor):
+    """
+    Migration has no reversal
+    """
     pass
 
 

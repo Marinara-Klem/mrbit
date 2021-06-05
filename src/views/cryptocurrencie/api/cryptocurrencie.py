@@ -46,34 +46,33 @@ class CryptocurrencyOperationViewSet(mixins.CreateModelMixin, viewsets.GenericVi
     def operation(self, request, **kwargs):
         serializer = self.get_serializer(data=request.data)
 
-        if serializer.is_valid():
-            cryptocurrencie = self.get_object()
-            amount_of_cryptocurrencies = serializer.validated_data.get('amount')
-            operation_type = serializer.validated_data.get('type')
+        serializer.is_valid(raise_exception=True)
+        cryptocurrencie = self.get_object()
+        amount_of_cryptocurrencies = serializer.validated_data.get('amount')
+        operation_type = serializer.validated_data.get('type')
 
-            if operation_type == CryptocurrencyOperationTypeChoices.BUY:
-                params_cryptocurrency_operation = {
-                    'buyer': get_object_or_404(User, pk=kwargs.get('user_pk')),
-                    'seller': get_object_or_404(User, pk=serializer.validated_data.get('user_id'))
-                }
-            else:
-                # SELL
-                params_cryptocurrency_operation = {
-                    'buyer': get_object_or_404(User, pk=serializer.validated_data.get('user_id')),
-                    'seller': get_object_or_404(User, pk=kwargs.get('user_pk'))
-                }
+        if operation_type == CryptocurrencyOperationTypeChoices.BUY:
+            params_cryptocurrency_operation = {
+                'buyer': get_object_or_404(User, pk=kwargs.get('user_pk')),
+                'seller': get_object_or_404(User, pk=serializer.validated_data.get('user_id'))
+            }
+        else:
+            # SELL
+            params_cryptocurrency_operation = {
+                'buyer': get_object_or_404(User, pk=serializer.validated_data.get('user_id')),
+                'seller': get_object_or_404(User, pk=kwargs.get('user_pk'))
+            }
 
-            successful_purchase, msg = CryptocurrencyOperationService.execute(
-                **{
-                    **params_cryptocurrency_operation,
-                    'cryptocurrencie': cryptocurrencie,
-                    'amount_of_cryptocurrencies': amount_of_cryptocurrencies,
-                    'operation_type': operation_type
-                }
-            )
+        successful_purchase, msg = CryptocurrencyOperationService.execute(
+            **{
+                **params_cryptocurrency_operation,
+                'cryptocurrencie': cryptocurrencie,
+                'amount_of_cryptocurrencies': amount_of_cryptocurrencies,
+                'operation_type': operation_type
+            }
+        )
 
-            if not successful_purchase:
-                raise ValidationError(msg)
+        if not successful_purchase:
+            raise ValidationError(msg)
 
-            return response.Response({msg}, status.HTTP_201_CREATED)
-        return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return response.Response({msg}, status.HTTP_201_CREATED)

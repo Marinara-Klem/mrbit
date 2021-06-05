@@ -1,0 +1,14 @@
+[
+    {
+        "abbreviation": "BTC",
+        "name": "Bitcoin"
+    },
+    {
+        "abbreviation": "ETH",
+        "name": "Ethereum"
+    },
+    {
+        "abbreviation": "LTC",
+        "name": "Litecoin"
+    }
+]

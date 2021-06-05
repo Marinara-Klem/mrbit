@@ -7,10 +7,14 @@ from domain.cryptocurrencie.models import Cryptocurrencie
 
 
 class CryptocurrencieSerializer(serializers.ModelSerializer):
-    def validate_abbreviation(self, abbreviation):
+    @staticmethod
+    def validate_abbreviation(abbreviation):
+        abbreviation = abbreviation.upper()
         if not utils.valid_cryptocurrency_abbreviation(abbreviation=abbreviation):
             msg = 'A abreviação não esta relacionada a nenhuma criptomoeda conhecida'
             raise ValidationError(msg)
+
+        return abbreviation
 
     price_in_dollars = serializers.DecimalField(max_digits=15, decimal_places=2, required=False, read_only=True)
 

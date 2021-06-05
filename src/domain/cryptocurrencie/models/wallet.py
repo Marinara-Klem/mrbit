@@ -12,6 +12,10 @@ class Wallet(models.Model):
     def __str__(self):
         return f'{self.cryptocurrencie}'
 
+    @property
+    def total_price_in_dollars(self):
+        return self.cryptocurrencie.price_in_dollars * self.amount
+
     def has_enough_cryptocurrencies_for_sale(self, sale_quantity: decimal.Decimal):
         return self.amount >= sale_quantity
 

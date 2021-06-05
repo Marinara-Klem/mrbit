@@ -1,7 +1,7 @@
-from rest_framework import viewsets, decorators, response, status
+from rest_framework import viewsets, decorators, response, status, pagination
 
 from domain.user.models import User
-from views.user.serializer import UserSerializer, UserBalanceCreateSerializer
+from views.user.serializer import UserSerializer, UserBalanceCreateSerializer, UserRetrieveSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -9,8 +9,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ['balances']:
+        if self.action == 'balances':
             return UserBalanceCreateSerializer
+        elif self.action == 'retrieve':
+            return UserRetrieveSerializer
         return super().get_serializer_class()
 
     @decorators.action(methods=['post'], detail=True, url_path='balances')

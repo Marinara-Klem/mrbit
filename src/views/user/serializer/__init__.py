@@ -1,1 +1,1 @@
-from .user import UserSerializer, UserBalanceCreateSerializer
+from .user import UserSerializer, UserBalanceCreateSerializer, UserRetrieveSerializer

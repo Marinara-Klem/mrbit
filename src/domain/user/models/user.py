@@ -30,3 +30,7 @@ class User(models.Model):
 
     def credit_balance(self, amount: decimal.Decimal):
         self.balance += decimal.Decimal(amount)
+
+    @property
+    def wallet_value_in_dollars(self):
+        return sum(wallet.total_price_in_dollars for wallet in self.wallet_set.all())

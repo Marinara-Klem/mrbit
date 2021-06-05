@@ -13,6 +13,7 @@ psycopg2 = "*"
 djangorestframework = "*"
 drf-yasg = "*"
 drf-nested-routers = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"

@@ -19,6 +19,7 @@ SETTINGS_DIR = Path(__file__).parent
 PROJECT_DIR = SETTINGS_DIR.parent
 BASE_DIR = PROJECT_DIR.parent
 ROOT_DIR = BASE_DIR.parent
+STATIC_ROOT = PROJECT_DIR.parent
 
 ADMIN_ENABLED = False
 

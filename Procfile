@@ -1,2 +1,2 @@
-web: gunicorn src.project.wsg:application --log-file
+web: gunicorn src.project.wsgi:application
 src/manage.py migrate

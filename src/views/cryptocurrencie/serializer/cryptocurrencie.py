@@ -48,10 +48,9 @@ class CryptocurrencyOperationSerializer(ValidateAmount, serializers.Serializer):
         request = self.context.get('request')
         view = self.context.get('view')
 
-        if request and view:
-            if request.data.get('user_id') == int(view.kwargs.get('user_pk')):
-                msg = 'Um usuario não pode ser o vendedor e comprador na mesma operação'
-                raise ValidationError(msg)
+        if request and view and request.data.get('user_id') == int(view.kwargs.get('user_pk')):
+            msg = 'Um usuario não pode ser o vendedor e comprador na mesma operação'
+            raise ValidationError(msg)
 
         return user_id
 

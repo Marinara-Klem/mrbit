@@ -9,7 +9,7 @@ fixture_filename = 'cryptocurrencies.json'
 
 
 def load_fixture(apps, schema_editor):
-    Cryptocurrency = apps.get_model('cryptocurrencie', 'Cryptocurrencie')
+    cryptocurrency_model = apps.get_model('cryptocurrencie', 'Cryptocurrencie')
 
     fixture_file = os.path.join(fixture_dir, fixture_filename)
     fixture = open(fixture_file, 'r')
@@ -23,13 +23,13 @@ def load_fixture(apps, schema_editor):
         name = cryptocurrency['name']
 
         cryptocurrencies_lista.append(
-            Cryptocurrency(
+            cryptocurrency_model(
                 name=name.strip(),
                 abbreviation=abbreviation.strip()
             )
         )
 
-    Cryptocurrency.objects.bulk_create(cryptocurrencies_lista)
+    cryptocurrency_model.objects.bulk_create(cryptocurrencies_lista)
 
 
 def reverte(apps, schema_editor):

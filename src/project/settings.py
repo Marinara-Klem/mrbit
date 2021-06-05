@@ -29,7 +29,7 @@ ADMIN_ENABLED = False
 SECRET_KEY = 'django-insecure-y2k_qc3z6$m0fa20n)@0pk65nrx_b%kqnbyei4%(+tv)6q#ad^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
 

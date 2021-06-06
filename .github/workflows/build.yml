@@ -19,6 +19,7 @@ jobs:
         with:
           # Shallow clones should be disabled for a better relevancy of analysis
           fetch-depth: 0
+          projectBaseDir: .
       - name: Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

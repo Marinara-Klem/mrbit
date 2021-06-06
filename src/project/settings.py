@@ -113,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ROOT_URLCONF = 'project.urls.base'
 
-# region API KEY CRYTOCOMPARE
+# region API_KEY CRYTOCOMPARE
 
 URL_BASE_CRYPTOCOMPARE = 'https://min-api.cryptocompare.com/data/price'
 API_KEY_CRYPTOCOMPARE = '5f8edfaf61171af17a2c80b336164bdbaf92bf72e894bd85f0486b76d1907b01'
